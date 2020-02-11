@@ -13,6 +13,7 @@ services:
       RACK_ENV: development
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
+      POSTGRES_HOST: db
     volumes: &web-volumes
       - ./:/app
       - ~/.bash_history:/root/.bash_history
