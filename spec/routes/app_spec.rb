@@ -13,17 +13,17 @@ describe App, type: :controller do
 
   describe '/sites' do
     it 'should accept urls by post' do
-      post "/sites", urls: ['google.com', 'ya.ru']
+      post "/sites", urls: ['http://google.com']
 
       expect(last_response.status).to eq(200)
       expect(last_response.body).to eq('Parsed')
     end
 
     it 'should insert to db sites info' do
-      post "/sites", urls: ['google.com', 'ya.ru']
+      post "/sites", urls: ['http://google.com', 'http://ya.ru']
 
       expect(DB[:sites].count).to eq(2)
-      expect(DB[:sites].first[:url]).to eq('google.com')
+      expect(DB[:sites].first[:status]).to eq(200)
     end
   end
 end

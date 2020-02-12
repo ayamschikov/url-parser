@@ -2,6 +2,7 @@
 
 require 'roda'
 require_relative 'db'
+require_relative 'lib/url_parser'
 
 class App < Roda
 
@@ -18,8 +19,9 @@ class App < Roda
     r.on 'sites' do
       r.post do
 
-        urls = r.params['urls']
-        urls.each { |u| Site.create(url: u, title: 'te', status: 200) }
+        r.params['urls'].each do |u|
+          Site.create(UrlParser.url_info(u))
+        end
 
         'Parsed'
       end
