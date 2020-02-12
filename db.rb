@@ -10,5 +10,3 @@ DB = if ENV.fetch('RACK_ENV') == 'test'
      else
        Sequel.connect(ENV.fetch('DATABASE_URL'))
      end
-
-Dir['./models/*.rb'].sort.each { |file| require file }

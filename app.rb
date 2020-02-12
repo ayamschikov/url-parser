@@ -5,6 +5,8 @@ require_relative 'db'
 require_relative 'lib/url_parser'
 require_relative 'lib/site_service'
 
+Dir['./models/*.rb'].each { |file| require file }
+
 class App < Roda
   plugin :multi_route
   plugin :path
