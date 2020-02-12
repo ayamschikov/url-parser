@@ -19,9 +19,15 @@ class App < Roda
     r.on 'sites' do
       r.post do
 
-        r.params['urls'].each do |u|
-          Site.create(UrlParser.url_info(u))
+        threads = []
+
+        r.params['urls'].each do |url|
+          threads << Thread.new(url) do |i|
+            Site.create(UrlParser.url_info(i))
+          end
         end
+
+        threads.each { |thr| thr.join }
 
         'Parsed'
       end

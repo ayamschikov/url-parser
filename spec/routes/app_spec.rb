@@ -20,9 +20,9 @@ describe App, type: :controller do
     end
 
     it 'should insert to db sites info' do
-      post "/sites", urls: ['http://google.com', 'http://ya.ru']
+      post "/sites", urls: ['http://google.com', 'http://ya.ru'] * 100
 
-      expect(DB[:sites].count).to eq(2)
+      expect(DB[:sites].count).to eq(200)
       expect(DB[:sites].first[:status]).to eq(200)
     end
   end
