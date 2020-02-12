@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Migrate
 
 migrate = lambda do |env, version|
@@ -9,22 +11,22 @@ migrate = lambda do |env, version|
   Sequel::Migrator.apply(DB, 'migrate', version)
 end
 
-desc "Create the database"
+desc 'Create the database'
 task :create do
   config = Sequel::Model.db.opts
-  config[:charset] = "utf8" unless config[:charset]
+  config[:charset] = 'utf8' unless config[:charset]
   puts "=> Creating database '#{config[:database]}'"
   create_db(config)
-  puts "<= db:create executed"
+  puts '<= db:create executed'
 end
 
-desc "Drop the database"
+desc 'Drop the database'
 task :drop do
   Sequel::Model.db.disconnect
   config = Sequel::Model.db.opts
   puts "=> Dropping database '#{config[:database]}'"
   drop_db(config)
-  puts "<= db:drop executed"
+  puts '<= db:drop executed'
 end
 
 desc 'Migrate test database to latest version'
@@ -114,23 +116,23 @@ end
 
 def self.create_db(config)
   environment = {}
-  environment["PGUSER"]     = config[:user]
-  environment["PGPASSWORD"] = config[:password]
+  environment['PGUSER']     = config[:user]
+  environment['PGPASSWORD'] = config[:password]
   arguments = []
   arguments << "--encoding=#{config[:charset]}" if config[:charset]
   arguments << "--host=#{config[:host]}" if config[:host]
   arguments << "--username=#{config[:user]}" if config[:user]
   arguments << config[:database]
-  Process.wait Process.spawn(environment, "createdb", *arguments)
+  Process.wait Process.spawn(environment, 'createdb', *arguments)
 end
 
 def self.drop_db(config)
   environment = {}
-  environment["PGUSER"]     = config[:user]
-  environment["PGPASSWORD"] = config[:password]
+  environment['PGUSER']     = config[:user]
+  environment['PGPASSWORD'] = config[:password]
   arguments = []
   arguments << "--host=#{config[:host]}" if config[:host]
   arguments << "--username=#{config[:user]}" if config[:user]
   arguments << config[:database]
-  Process.wait Process.spawn(environment, "dropdb", *arguments)
+  Process.wait Process.spawn(environment, 'dropdb', *arguments)
 end

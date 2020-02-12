@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Site, type: :model do
@@ -11,6 +12,6 @@ describe Site, type: :model do
     site = Site.new(url: 'url')
 
     expect(site.valid?).to be_falsey
-    expect{ site.save }.to raise_error(Sequel::ValidationFailed)
+    expect { site.save }.to raise_error(Sequel::ValidationFailed)
   end
 end

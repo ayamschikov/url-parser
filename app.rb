@@ -5,7 +5,6 @@ require_relative 'db'
 require_relative 'lib/url_parser'
 
 class App < Roda
-
   plugin :multi_route
   plugin :path
 
@@ -18,7 +17,6 @@ class App < Roda
 
     r.on 'sites' do
       r.post do
-
         threads = []
 
         r.params['urls'].each do |url|
@@ -27,7 +25,7 @@ class App < Roda
           end
         end
 
-        threads.each { |thr| thr.join }
+        threads.each(&:join)
 
         'Parsed'
       end

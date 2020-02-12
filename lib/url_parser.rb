@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 require 'nokogiri'
 
 module UrlParser
   module_function
+
   def url_info(url)
     return '' unless validate_url(url)
 

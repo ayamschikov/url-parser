@@ -3,4 +3,3 @@
 
 rackup DefaultRackup
 port ENV['PORT'] || 8080
-stdout_redirect(stdout = '/dev/stdout', stderr = '/dev/stderr', append = true)

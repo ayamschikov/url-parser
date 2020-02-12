@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'sequel'
 require 'dotenv'
 
 Dotenv.load
 
-unless ENV.fetch('RACK_ENV') == 'test'
-  DB = Sequel.connect(ENV.fetch('DATABASE_URL'))
-else
-  DB = Sequel.connect(ENV.fetch('TEST_DATABASE_URL'))
-end
+DB = if ENV.fetch('RACK_ENV') == 'test'
+       Sequel.connect(ENV.fetch('TEST_DATABASE_URL'))
+     else
+       Sequel.connect(ENV.fetch('DATABASE_URL'))
+     end
 
-Dir['./models/*.rb'].each { |file| require file }
+Dir['./models/*.rb'].sort.each { |file| require file }

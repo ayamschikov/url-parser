@@ -1,0 +1,13 @@
+AllCops:
+  TargetRubyVersion: 2.7.0
+  Exclude:
+    - '.pg_data/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/AbcSize:
+  Max: 20

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 describe App, type: :controller do
@@ -13,14 +14,14 @@ describe App, type: :controller do
 
   describe '/sites' do
     it 'should accept urls by post' do
-      post "/sites", urls: ['http://google.com']
+      post '/sites', urls: ['http://google.com']
 
       expect(last_response.status).to eq(200)
       expect(last_response.body).to eq('Parsed')
     end
 
     it 'should insert to db sites info' do
-      post "/sites", urls: ['http://google.com', 'http://ya.ru'] * 100
+      post '/sites', urls: ['http://google.com', 'http://ya.ru'] * 100
 
       expect(DB[:sites].count).to eq(200)
       expect(DB[:sites].first[:status]).to eq(200)
