@@ -12,6 +12,10 @@ gem 'sequel', '~> 5.29.0'
 gem 'sequel_pg', '~> 1.12.4'
 
 group :development, :test do
+  gem 'capybara', '~> 2.5.0'
+  gem 'database_cleaner', '~> 1.4.1'
+  gem 'rack-test', '~> 1.1.0'
   gem 'rspec', '~> 3.9.0'
+  gem 'rspec-roda', '~> 0.2.2'
   gem 'rubocop', '~> 0.79.0'
 end

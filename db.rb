@@ -9,5 +9,4 @@ else
   DB = Sequel.connect(ENV.fetch('TEST_DATABASE_URL'))
 end
 
-Dir['./lib/models/*.rb'].each { |file| require file }
-
+Dir['./models/*.rb'].each { |file| require file }
