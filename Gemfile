@@ -18,4 +18,6 @@ group :development, :test do
   gem 'rspec', '~> 3.9.0'
   gem 'rspec-roda', '~> 0.2.2'
   gem 'rubocop', '~> 0.79.0'
+  gem 'webmock', '~> 3.8.2'
+  gem 'simplecov', '~> 0.18.2'
 end

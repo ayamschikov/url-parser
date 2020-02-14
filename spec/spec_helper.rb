@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+SimpleCov.start do
+  add_filter "/spec/"
+end
+
 require 'rack/test'
 require_relative '../app'
 require 'database_cleaner'
 require 'dotenv'
 require 'capybara/rspec'
+require 'webmock/rspec'
 
 ENV['RACK_ENV'] = 'test'
 
@@ -41,6 +47,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner[:sequel].start
+    stub_request(:any, 'http://google.com').to_return(status: 200, body: '<html><title>Google</title></html>', headers: {})
   end
 
   config.after(:each) do

@@ -11,7 +11,7 @@ module UrlParser
 
     info = {}
     URI.open(url) do |f|
-      info[:url] = f.base_uri.to_s
+      info[:url] = url
       info[:status] = f.status.first.to_i
       info[:title] = Nokogiri::HTML.parse(f).title
     end
