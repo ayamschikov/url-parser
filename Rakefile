@@ -95,25 +95,6 @@ task :prod_irb do
   irb.call('production')
 end
 
-# Specs
-
-spec = proc do |pattern|
-  sh "#{FileUtils::RUBY} -e 'ARGV.each{|f| require f}' #{pattern}"
-end
-
-desc 'Run all specs'
-task default: %i[models_spec app_spec]
-
-desc 'Run model specs'
-task :models_spec do
-  spec.call('./spec/models/*_spec.rb')
-end
-
-desc 'Run web specs'
-task :app_spec do
-  spec.call('./spec/lib/*_spec.rb')
-end
-
 def self.create_db(config)
   environment = {}
   environment['PGUSER']     = config[:user]
@@ -136,3 +117,6 @@ def self.drop_db(config)
   arguments << config[:database]
   Process.wait Process.spawn(environment, 'dropdb', *arguments)
 end
+
+desc 'Run all specs'
+task default: sh('rspec')

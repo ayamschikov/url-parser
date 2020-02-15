@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+
 SimpleCov.start do
-  add_filter "/spec/"
+  add_filter '/spec/'
 end
 
-require 'rack/test'
-require_relative '../app'
+require 'capybara/rspec'
 require 'database_cleaner'
 require 'dotenv'
-require 'capybara/rspec'
+require 'factory_bot'
+require 'rack/test'
 require 'webmock/rspec'
+require_relative '../app'
 
 ENV['RACK_ENV'] = 'test'
 
@@ -39,15 +41,20 @@ RSpec.configure do |config|
 
   config.include Rack::Test::Methods
 
+  config.include FactoryBot::Syntax::Methods
+
   # Cleanup the DB in between test runs
   config.before(:suite) do
     DatabaseCleaner[:sequel].strategy = :truncation
     DatabaseCleaner[:sequel].clean_with(:truncation)
+    FactoryBot.find_definitions
   end
 
   config.before(:each) do
     DatabaseCleaner[:sequel].start
-    stub_request(:any, 'http://google.com').to_return(status: 200, body: '<html><title>Google</title></html>', headers: {})
+    stub_request(:any, 'http://google.com').to_return(status: 200,
+                                                      body: '<html><title>Google</title></html>',
+                                                      headers: {})
   end
 
   config.after(:each) do

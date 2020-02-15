@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-require 'nokogiri'
-
 module UrlParser
   module_function
 
@@ -10,11 +7,14 @@ module UrlParser
     return '' unless validate_url(url)
 
     info = {}
-    URI.open(url) do |f|
-      info[:url] = url
-      info[:status] = f.status.first.to_i
-      info[:title] = Nokogiri::HTML.parse(f).title
-    end
+
+    uri = URI.parse(url)
+
+    response = Net::HTTP.get_response(uri)
+
+    info[:status] = response.code.to_i
+    info[:title] = info[:status] != 200 ? '' : Nokogiri::HTML.parse(response.body).title
+    info[:url] = url
 
     info
   end

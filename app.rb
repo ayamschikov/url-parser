@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 require 'roda'
+require 'require_all'
 require_relative 'db'
-require_relative 'lib/url_parser'
-require_relative 'lib/site_service'
-
-Dir['./models/*.rb'].each { |file| require file }
+require_all 'lib'
+require_all 'models'
 
 class App < Roda
   plugin :multi_route
   plugin :path
+
+  require_all 'routes'
 
   path :root, '/'
 
@@ -18,12 +19,6 @@ class App < Roda
       'Root path'
     end
 
-    r.on 'sites' do
-      r.post do
-        SiteService.upload_sites_by_urls(r.params['urls'])
-
-        'Parsed'
-      end
-    end
+    r.route('sites')
   end
 end

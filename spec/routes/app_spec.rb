@@ -25,9 +25,9 @@ describe App, type: :controller do
     it 'should insert to db sites info' do
       post '/sites', urls: urls
 
-      expect(DB[:sites].count).to eq(1)
-      expect(DB[:sites].first[:status]).to eq(200)
-      expect(DB[:sites].first[:title]).to eq('Google')
+      expect(Site.count).to eq(1)
+      expect(Site.first[:status]).to eq(200)
+      expect(Site.first[:title]).to eq('Google')
     end
   end
 end

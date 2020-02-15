@@ -8,7 +8,7 @@ describe SiteService, type: :feature do
   it 'should visit' do
     SiteService.upload_sites_by_urls(urls)
 
-    expect(DB[:sites].count).to eq(1)
-    expect(DB[:sites].first[:status]).to eq(200)
+    expect(Site.count).to eq(1)
+    expect(Site.first[:status]).to eq(200)
   end
 end
