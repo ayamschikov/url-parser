@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '2.7.0'
 
 gem 'dotenv', '~> 2.7.5'
-gem 'puma', '~> 4.3.1'
+gem 'puma', '~> 4.3.8'
 gem 'rake', '~> 13.0.1'
 gem 'require_all', '~> 3.0.0'
 gem 'roda', '~> 3.28.0'
